@@ -6,11 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dream.wave.party.address.PartyAddressRepository;
+import com.dream.wave.party.address.TblPartyAddress;
+
 @Service
 public class PartyService {
 	
 	@Autowired
 	private PartyRepository tblParty;
+	
+	@Autowired
+	private PartyAddressRepository tblPartyAddress;
 		
 	public List<TblParty> getAllParty() {
 		
@@ -34,8 +40,22 @@ public class PartyService {
 			partyObj.setPtyLastUpdatedBy("Admin");
 			partyObj.setPtyLastUpdateDate(new Date());
 			
-			tblParty.save(partyObj);
 			
+			TblPartyAddress objAddress = new TblPartyAddress();
+			objAddress.setPtyaddAddress1("Burdwan");
+			objAddress.setPtyyadPtyIdRef(partyObj.getPtyId());
+			objAddress.setPtyaddTenantCode("2");
+			objAddress.setPtyaddCreatedDate(new Date());
+			objAddress.setPtyaddCreatedBy("Admin");
+			objAddress.setPtyaddLastUpdateDate(new Date());
+			objAddress.setPtyaddLastUpdatedBy("Admin");
+			
+			//objAddress.setTblParty(partyObj);
+			partyObj.setPartyAddress(objAddress);
+			
+			
+			tblParty.save(partyObj);
+			//tblPartyAddress.save(objAddress);
 			msg = "SuccessFull";
 			
 		}catch (Exception e) {
