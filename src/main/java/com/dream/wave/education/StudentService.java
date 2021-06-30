@@ -31,7 +31,10 @@ public class StudentService {
 			
 			School objSchool = new School();
 			objSchool.setSchoolName("Municipal High School");
+
+			
 			objStudent.setSchool(objSchool);
+			objSchool.setStudent(objStudent);
 			
 			
 			studentRepo.save(objStudent);
